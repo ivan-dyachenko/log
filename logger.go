@@ -112,8 +112,12 @@ func (l *Logger) log(level Level, msg interface{}, keyvals ...interface{}) {
 // Helper marks the calling function as a helper
 // and skips it for source location information.
 // It's the equivalent of testing.TB.Helper().
-func (l *Logger) Helper() {
-	l.helper(1)
+func (l *Logger) Helper(skip ...int) {
+	if len(skip) == 0 {
+		l.helper(1)
+	} else {
+		l.helper(skip[0])
+	}
 }
 
 func (l *Logger) helper(skip int) {
